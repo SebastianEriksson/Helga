@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HelgaController {
 	
-	
+	// Takes user to login page when connecting
 	@RequestMapping(value ="/")
 	public String index() {
-		return "index";
+		return "login";
 	}
 }

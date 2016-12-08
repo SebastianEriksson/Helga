@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+// Create position entity
 @Entity
 public class Position {
 	@Id
@@ -19,6 +20,7 @@ public class Position {
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "position")
 	private List<Member> members;
 	
+	// Getters and setters
 	public Position() {}
 	
 	public Position(String name) {

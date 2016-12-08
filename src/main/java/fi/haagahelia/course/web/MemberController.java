@@ -44,14 +44,14 @@ public class MemberController {
 	}
 	
 	// Show all members through a RESTful GET method
-	@RequestMapping(value="memberss", method = RequestMethod.GET)
-	public @ResponseBody List<Member> bookListRest() {
+	@RequestMapping(value="members", method = RequestMethod.GET)
+	public @ResponseBody List<Member> MembertRest() {
 		return (List<Member>) repository.findAll();
 	}
 	
 	// Show specific member through RESTful GET method by id
 	@RequestMapping(value="/member/{id}", method = RequestMethod.GET)
-	public @ResponseBody Member findBookRest(@PathVariable("id") Long memberId) {
+	public @ResponseBody Member findMemberRest(@PathVariable("id") Long memberId) {
 		return repository.findOne(memberId);
 	}
 	

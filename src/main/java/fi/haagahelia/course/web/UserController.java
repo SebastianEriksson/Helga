@@ -1,7 +1,5 @@
 package fi.haagahelia.course.web;
 
-import java.time.LocalDate;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,8 +50,8 @@ public class UserController {
 		    	newMember.setFirstName(signupForm.getFirstName());
 		    	newMember.setSurname(signupForm.getSurname());
 		    	newMember.setEmail(signupForm.getEmail());
-		    	newMember.setValid(LocalDate.now().plusMonths(12));
-		    	newMember.setMembership(signupForm.getMembership());
+		    	newMember.setValid(signupForm.getValid());
+		    	newMember.setMembership("yes");
 		    	newMember.setPosition(signupForm.getPosition());
 		    	
 		    	

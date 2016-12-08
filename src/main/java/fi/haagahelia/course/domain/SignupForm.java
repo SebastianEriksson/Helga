@@ -42,7 +42,6 @@ public class SignupForm {
     private String membership = "yes";
     
     @NotEmpty
-    @Size(min=5, max=15)
     private Position position;
 
 	public String getUsername() {

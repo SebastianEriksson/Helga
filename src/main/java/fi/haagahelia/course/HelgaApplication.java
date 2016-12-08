@@ -1,5 +1,7 @@
 package fi.haagahelia.course;
 
+import java.time.LocalDate;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -35,7 +37,7 @@ public class HelgaApplication extends SpringBootServletInitializer {
 	@Bean
 	public CommandLineRunner bookDemo(MemberRepository repository, PositionRepository prepository) {
 		return (args) -> {
-			log.info("Add a couple of book to the database");
+			log.info("Add a couple of test users to the database");
 			
 			// Create pre-made positions
 			prepository.save(new Position("Member"));
@@ -45,6 +47,11 @@ public class HelgaApplication extends SpringBootServletInitializer {
 			prepository.save(new Position("Admin"));
 			
 			// Create pre-made users
+			
+			repository.save(new Member("John", "Snow", "JohnSnow@GOT.hbo", 
+					LocalDate.now().plusMonths(12), "yes", "john", 
+					"$2a$10$ClgJRD8V9bQewxWz7gw04.jiQBb7uENBwaXb1G4/oI/0n6WXEIw0i", 
+					"member", prepository.findByName("Tutor").get(0)));
 			
 			// Show all the members in the log at startup
 			log.info("show all the members in the database");

@@ -2,6 +2,8 @@ package fi.haagahelia.course.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,12 +17,23 @@ import javax.persistence.ManyToOne;
 public class Member {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	// Don't allow null values
 	@Column(name = "id", nullable = false, updatable = false)
 	private Long id;
+	
+	@Column(name = "firstName", nullable = false)
 	private String firstName;
+	
+	@Column(name = "surname", nullable = false)
 	private String surname;
+	// Force email to be unique
+	@Column(name = "email", nullable = false, unique = true)
 	private String email;
-	private double valid;
+	
+	@Column(name = "valid", nullable = false)
+	private LocalDate valid;
+	
+	@Column(name = "membership", nullable = false)
 	private String membership;
 	
 	// Username with unique constraint
@@ -44,8 +57,8 @@ public class Member {
 	// Getters and setters
 	public Member() {}
 	
-	public Member(String firstName, String surname, String email, double valid, 
-			String membership, String username, String passwordHash, String role) {
+	public Member(String firstName, String surname, String email, LocalDate valid, 
+			String membership, String username, String passwordHash, String role, Position position) {
 		super();
 		this.firstName = firstName;
 		this.surname = surname;
@@ -55,6 +68,7 @@ public class Member {
 		this.username = username;
 		this.passwordHash = passwordHash;
 		this.role = role;
+		this.position = position;
 	}
 	
 	public Long getId() {
@@ -81,10 +95,10 @@ public class Member {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public double getValid() {
+	public LocalDate getValid() {
 		return valid;
 	}
-	public void setValid(double valid) {
+	public void setValid(LocalDate valid) {
 		this.valid = valid;
 	}
 	public String getMembership() {

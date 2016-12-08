@@ -17,9 +17,11 @@ import fi.haagahelia.course.domain.PositionRepository;
 
 @Controller
 public class MemberController {
+	// Get the member list
 	@Autowired
 	private MemberRepository repository;
 	
+	// Get the position list
 	@Autowired
 	private PositionRepository prepository;
 	
@@ -74,6 +76,6 @@ public class MemberController {
 	public String deleteMember(@PathVariable("id") Long memberId, Model model) {
 		repository.delete(memberId);
 		return "redirect:../memberlist";
-	}
+	}    
 
 }

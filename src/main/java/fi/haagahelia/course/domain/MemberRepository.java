@@ -7,4 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 public interface MemberRepository extends CrudRepository<Member, Long>{
 	
 	List<Member> findById(Long id);
+	
+	List<Member> findByUsername(String username);
 }

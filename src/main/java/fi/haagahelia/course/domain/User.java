@@ -1,10 +1,14 @@
 package fi.haagahelia.course.domain;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class User {
@@ -25,6 +29,9 @@ public class User {
 	// Defines the role (member, moderator, admin)
 	@Column(name = "role", nullable = false)
 	private String role;
+	
+	@OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
+	private List<Member> members;
 	
 	// Getters and setters
 	public User() {
@@ -63,6 +70,13 @@ public class User {
 	}
 	public void setRole(String role) {
 		this.role = role;
+	}
+	
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + 
+				", passwordHash=" + passwordHash + ", role=" + 
+				role + "]";
 	}
 	
 }

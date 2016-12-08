@@ -16,7 +16,7 @@ import fi.haagahelia.course.domain.MemberRepository;
 import fi.haagahelia.course.domain.PositionRepository;
 
 @Controller
-public class HelgaController {
+public class MemberController {
 	@Autowired
 	private MemberRepository repository;
 	

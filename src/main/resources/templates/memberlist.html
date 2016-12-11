@@ -38,12 +38,12 @@
 				<td th:text="${member.email}"></td>
 				<td th:text="${member.valid}"></td> <!-- How long ones membership is still valid -->
 				<td th:text="${member.membership.name}"></td> <!-- Shows what kind of membership one has (member, tutor etc) -->
-				<td th:text="${member.user.role.name}"></td> <!-- Shows which role the person is in -->
+				<td th:text="${member.user.role}"></td> <!-- Shows which role the person is in -->
 				<td th:text="${member.user.username}"></td> <!-- Get member username -->
-				<td sec:authorize="hasRole('ADMIN')"><a class="btn btn-danger" 
+				<td sec:authorize="hasAuthority('ADMIN')"><a class="btn btn-danger" 
 						th:href="@{/delete/{id}(id=${member.id})}">Delete</a></td> <!-- Allow only admins to delete users -->
 			</tr>
 	     </table>
-		 <a sec:authorize="hasRole('ADMIN')" href="/add" class="btn btn-success">Add Member</a> <!-- Add a new member -->
+		 <a sec:authorize="hasAuthority('ADMIN')" href="/add" class="btn btn-success">Add Member</a> <!-- Add a new member -->
 	</body>
 </html>

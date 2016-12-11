@@ -2,6 +2,7 @@ package fi.haagahelia.course.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,6 +15,7 @@ import javax.persistence.ManyToOne;
 public class Member {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id", nullable = false, updatable = false)
 	private Long id;
 	private String firstName, surname, email, valid;
 	

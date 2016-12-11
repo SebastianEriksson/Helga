@@ -13,8 +13,8 @@ import fi.haagahelia.course.domain.Member;
 import fi.haagahelia.course.domain.MemberRepository;
 import fi.haagahelia.course.domain.Membership;
 import fi.haagahelia.course.domain.MembershipRepository;
-import fi.haagahelia.course.domain.Role;
-import fi.haagahelia.course.domain.RoleRepository;
+//import fi.haagahelia.course.domain.Role;
+//import fi.haagahelia.course.domain.RoleRepository;
 import fi.haagahelia.course.domain.User;
 import fi.haagahelia.course.domain.UserRepository;
 
@@ -37,13 +37,13 @@ public class HelgaApplication extends SpringBootServletInitializer {
 	
 	// Add pre-made positions, test users with login access
 	@Bean
-	public CommandLineRunner bookDemo(MemberRepository repository, MembershipRepository mrepository, RoleRepository rrepository, UserRepository urepository) {
+	public CommandLineRunner bookDemo(MemberRepository repository, MembershipRepository mrepository, UserRepository urepository) {
 		return (args) -> {
 			log.info("Add a couple of test users to the database");
 			
 			// Create pre-made role statuses
-			rrepository.save(new Role("USER"));
-			rrepository.save(new Role("ADMIN"));
+//			rrepository.save(new User("USER"));
+//			rrepository.save(new Role("ADMIN"));
 			
 			// Create pre-made positions
 			mrepository.save(new Membership("member"));
@@ -55,10 +55,10 @@ public class HelgaApplication extends SpringBootServletInitializer {
 			// Create pre-made users for members
 			User user1 = new User("kai", 
 					"$2a$10$pw6Z8aFUI6T94OauF08U7ubXlKK9yFubDj1jubtn4QuH3z1Epf8Hu", 
-					rrepository.findByName("USER").get(0));
+					"USER");
 			User user2 = new User("john", 
 					"$2a$10$HaTVlLziVQhbIh/ZKVrg1.LOZ7js07DGMhcjf1DHqCJN/Bo.03tZe", 
-					rrepository.findByName("USER").get(0));
+					"ADMIN");
 			urepository.save(user1);
 			urepository.save(user2);
 			

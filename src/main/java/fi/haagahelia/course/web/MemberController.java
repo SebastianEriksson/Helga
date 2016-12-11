@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import fi.haagahelia.course.domain.Member;
 import fi.haagahelia.course.domain.MemberRepository;
 import fi.haagahelia.course.domain.MembershipRepository;
-import fi.haagahelia.course.domain.RoleRepository;
+//import fi.haagahelia.course.domain.RoleRepository;
 import fi.haagahelia.course.domain.User;
 import fi.haagahelia.course.domain.UserRepository;
 
@@ -28,7 +28,7 @@ public class MemberController {
 	private MembershipRepository mrepository;
 	
 	// Get the role list
-	private RoleRepository rrepository;
+//	private RoleRepository rrepository;
 	
 	// Get the user list
 	@Autowired
@@ -70,7 +70,7 @@ public class MemberController {
 	public String addMember(Model model) {
 		model.addAttribute("member", new Member());
 		model.addAttribute("memberships", mrepository.findAll());
-		model.addAttribute("roles", rrepository.findAll());
+//		model.addAttribute("roles", rrepository.findAll());
 		model.addAttribute("user", new User());
 		return "addmember";
 	}

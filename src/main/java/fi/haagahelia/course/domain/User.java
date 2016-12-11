@@ -5,10 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+//import javax.persistence.JoinColumn;
+//import javax.persistence.ManyToOne;
+//
+//import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class User {
@@ -16,7 +16,7 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", nullable = false, updatable = false)
-	private Long id;
+	private Long userid;
 	
 	// Username with unique constraint
 	@Column(name = "username", nullable = false, unique = true)
@@ -25,18 +25,22 @@ public class User {
 	// Password can't be null
 	@Column(name = "password", nullable = false)
 	private String passwordHash;
+	
+	// Role can't be null
+	@Column(name = "role", nullable = false)
+	private String role;
 		
-	// Insert position
-	@ManyToOne
-	@JsonIgnore
-	@JoinColumn(name = "roleid")
-	private Role role;
+//	// Insert position
+//	@ManyToOne
+//	@JsonIgnore
+//	@JoinColumn(name = "roleid")
+//	private Role role;
 	
 	// Getters and setters
 	public User() {
 	}
 	
-	public User(String username, String passwordHash, Role role) {
+	public User(String username, String passwordHash, String role) {
 		super();
 		this.username = username;
 		this.passwordHash = passwordHash;
@@ -44,10 +48,10 @@ public class User {
 	}
 	
 	public Long getId() {
-		return id;
+		return userid;
 	}
-	public void setId(Long id) {
-		this.id = id;
+	public void setId(Long userid) {
+		this.userid = userid;
 	}
 	
 	public String getUsername() {
@@ -64,17 +68,17 @@ public class User {
 		this.passwordHash = passwordHash;
 	}
 	
-	public Role getRole() {
+	public String getRole() {
 		return role;
 	}
-	public void setRole(Role role) {
+	public void setRole(String role) {
 		this.role = role;
 	}
 	
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + 
+		return "User [userid=" + userid + ", username=" + username + 
 				", passwordHash=" + passwordHash + 
-				", role=" + this.getRole() + "]";
+				", role=" + role + "]";
 	}
 	
 }

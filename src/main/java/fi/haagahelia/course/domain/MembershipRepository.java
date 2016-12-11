@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface PositionRepository extends CrudRepository<Position, Long>{
+public interface MembershipRepository extends CrudRepository<Membership, Long>{
 	
-	List<Position> findByName(String name);
+	List<Membership> findByName(String name);
 }

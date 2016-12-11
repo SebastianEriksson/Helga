@@ -11,28 +11,28 @@ import javax.persistence.OneToMany;
 
 // Create position entity
 @Entity
-public class Position {
+public class Role {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long positionid;
+	private Long roleid;
 	private String name;
 	
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "position")
-	private List<Member> members;
+	@OneToMany(cascade = CascadeType.ALL,mappedBy = "role")
+	private List<User> users;
 	
 	// Getters and setters
-	public Position() {}
+	public Role() {}
 	
-	public Position(String name) {
+	public Role(String name) {
 		super();
 		this.name = name;
 	}
 	
-	public Long getPositionid() {
-		return positionid;
+	public Long getRoleid() {
+		return roleid;
 	}
-	public void setPositionid(Long positionid) {
-		this.positionid = positionid;
+	public void setRoleid(Long roleid) {
+		this.roleid = roleid;
 	}
 	public String getName() {
 		return name;
@@ -41,15 +41,15 @@ public class Position {
 		this.name = name;
 	}
 	
-	public List<Member> getMembers() {
-		return members;
+	public List<User> getUsers() {
+		return users;
 	}
-	public void setMembers(List<Member> members) {
-		this.members = members;
+	public void setUsers(List<User> users) {
+		this.users = users;
 	}
 	
 	@Override
 	public String toString() {
-		return "Position [positionid=" + positionid + ", name=" + name + "]";
+		return "Role [roleid=" + roleid + ", name=" + name + "]";
 	}
 }

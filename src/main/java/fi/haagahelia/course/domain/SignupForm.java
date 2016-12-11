@@ -35,14 +35,10 @@ public class SignupForm {
     private String email = "";
 
     @NotEmpty
-    private LocalDate valid = LocalDate.now().plusMonths(12);
+    private String valid = LocalDate.now().plusMonths(12).toString();
     
     @NotEmpty
-    @Size(min=2, max=3)
-    private String membership = "yes";
-    
-    @NotEmpty
-    private Position position;
+    private String membership = "member";
 
 	public String getUsername() {
 		return username;
@@ -86,10 +82,10 @@ public class SignupForm {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public LocalDate getValid() {
+	public String getValid() {
 		return valid;
 	}
-	public void setValid(LocalDate valid) {
+	public void setValid(String valid) {
 		this.valid = valid;
 	}
 	public String getMembership() {
@@ -98,12 +94,5 @@ public class SignupForm {
 	public void setMembership(String membership) {
 		this.membership = membership;
 	}
-	public Position getPosition() {
-		return position;
-	}
-	public void setPosition(Position position) {
-		this.position = position;
-	}
-    
     
 }

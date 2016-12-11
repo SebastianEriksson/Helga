@@ -3,7 +3,6 @@ package fi.haagahelia.course.web;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import fi.haagahelia.course.domain.Member;
 import fi.haagahelia.course.domain.MemberRepository;
-import fi.haagahelia.course.domain.PositionRepository;
+import fi.haagahelia.course.domain.RoleRepository;
 
 @Controller
 public class MemberController {
@@ -23,7 +22,7 @@ public class MemberController {
 	
 	// Get the position list
 	@Autowired
-	private PositionRepository prepository;
+	private RoleRepository prepository;
 	
 	// Takes user to login page when connecting
 	@RequestMapping(value ="/")
@@ -56,7 +55,6 @@ public class MemberController {
 	}
 	
 	// Add new member to the db
-	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value = "/add")
 	public String addMember(Model model) {
 		model.addAttribute("member", new Member());

@@ -1,14 +1,14 @@
 package fi.haagahelia.course.domain;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class User {
@@ -26,18 +26,17 @@ public class User {
 	@Column(name = "password", nullable = false)
 	private String passwordHash;
 		
-	// Defines the role (member, moderator, admin)
-	@Column(name = "role", nullable = false)
-	private String role;
-	
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
-	private List<Member> members;
+	// Insert position
+	@ManyToOne
+	@JsonIgnore
+	@JoinColumn(name = "roleid")
+	private Role role;
 	
 	// Getters and setters
 	public User() {
 	}
 	
-	public User(String username, String passwordHash, String role) {
+	public User(String username, String passwordHash, Role role) {
 		super();
 		this.username = username;
 		this.passwordHash = passwordHash;
@@ -65,18 +64,17 @@ public class User {
 		this.passwordHash = passwordHash;
 	}
 	
-	public String getRole() {
+	public Role getRole() {
 		return role;
 	}
-	public void setRole(String role) {
+	public void setRole(Role role) {
 		this.role = role;
 	}
 	
-	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + 
-				", passwordHash=" + passwordHash + ", role=" + 
-				role + "]";
+				", passwordHash=" + passwordHash + 
+				", role=" + this.getRole() + "]";
 	}
 	
 }

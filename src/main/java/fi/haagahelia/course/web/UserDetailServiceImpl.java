@@ -24,12 +24,12 @@ public class UserDetailServiceImpl implements UserDetailsService {
 		this.repository = userRepository;
 	}
 	
-	// Load the user from the Member class and search through MemberRepo
+	// Load the user from the User class and search through UserRepo
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User curruser = repository.findByUsername(username);
 		UserDetails user = new org.springframework.security.core.userdetails.User(username, curruser.getPasswordHash(), 
-				AuthorityUtils.createAuthorityList(curruser.getRole()));
+				AuthorityUtils.createAuthorityList(curruser.getRole().toString()));
 		return user;
 	}
 }

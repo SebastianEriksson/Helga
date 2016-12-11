@@ -13,12 +13,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import fi.haagahelia.course.domain.Member;
 import fi.haagahelia.course.domain.SignupForm;
+import fi.haagahelia.course.domain.User;
+import fi.haagahelia.course.domain.UserRepository;
 import fi.haagahelia.course.domain.MemberRepository;
+import fi.haagahelia.course.domain.Membership;
+import fi.haagahelia.course.domain.Role;
 
 @Controller
 public class UserController {
 	@Autowired
 	private MemberRepository repository;
+	private UserRepository urepository;
 	
 	@RequestMapping(value = "signup")
 	public String addBook(Model model) {
@@ -42,30 +47,40 @@ public class UserController {
 	    		String pwd = signupForm.getPassword();
 		    	BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
 		    	String hashPwd = bc.encode(pwd);
-	
+		    	
+		    	// Enter Member details
 		    	Member newMember = new Member();
-		    	newMember.setPasswordHash(hashPwd);
-		    	newMember.setUsername(signupForm.getUsername());
-		    	newMember.setRole("USER");
 		    	newMember.setFirstName(signupForm.getFirstName());
 		    	newMember.setSurname(signupForm.getSurname());
 		    	newMember.setEmail(signupForm.getEmail());
 		    	newMember.setValid(signupForm.getValid());
-		    	newMember.setMembership("yes");
-		    	newMember.setPosition(signupForm.getPosition());
+		    	
+		    	// Enter Membership details
+		    	Membership newMembership = new Membership();
+		    	newMembership.setName("member");
+		    	
+		    	// Enter user details
+		    	User newUser = new User();
+		    	newUser.setPasswordHash(hashPwd);
+		    	newUser.setUsername(signupForm.getUsername());
+		    	
+		    	// Enter role details
+		    	Role newRole = new Role();
+		    	newRole.setName("USER");
 		    	
 		    	
-		    	if (repository.findByUsername(signupForm.getUsername()) == null && repository.findByEmail(signupForm.getEmail()) == null) { // Check if user or email exists
-		    		repository.save(newMember);
+		    	if (urepository.findByUsername(signupForm.getUsername()) == null && repository.findByEmail(signupForm.getEmail()) == null) { // Check if user or email exists
+		    		repository.save(newMember); // save member data
+		    		urepository.save(newUser); // save user data
 		    	}
 		    	else {
-	    			bindingResult.rejectValue("username", "err.username", "Username already exists");
-	    			bindingResult.rejectValue("email", "err.email", "Email already exsists");
+	    			bindingResult.rejectValue("username", "err.username", "Username already exists"); // give error if one exsists already
+	    			bindingResult.rejectValue("email", "err.email", "Email already exsists"); // give error if one exsists already
 	    			return "signup";
 		    	}
 			}
 			else {
-				bindingResult.rejectValue("passwordCheck", "err.passCheck", "Passwords does not match");    	
+				bindingResult.rejectValue("passwordCheck", "err.passCheck", "Passwords does not match"); // give error if the passwords don't match	
 				return "signup";
 			}
 		}

@@ -63,7 +63,7 @@ public class HelgaApplication extends SpringBootServletInitializer {
 			urepository.save(user2);
 			
 			// Create pre-made members
-			repository.save(new Member("John", "Snow", "JohnSnow@GOT.hbo", "2017-12-12", 
+			repository.save(new Member("John", "Snow", "johnsnow@got.hbo", "2017-12-12", 
 					mrepository.findByName("tutor").get(0), 
 					urepository.findByUsername("john")));
 			repository.save(new Member("Kai", "Mountain", "Kai@hotmail.com", "2017-12-12", 

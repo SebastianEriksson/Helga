@@ -6,9 +6,9 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface MemberRepository extends CrudRepository<Member, Long> {
 	
-	List<Member> findByFirstName(Long firstName);
+	List<Member> findById(Long id);
+	
+	List<Member> findByFirstName(String firstName);
 	
 	List<Member> findByEmail(String email);
-
-	void save(String total);
 }

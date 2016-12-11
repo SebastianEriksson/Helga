@@ -3,6 +3,7 @@ package fi.haagahelia.course.domain;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,7 +15,8 @@ import javax.persistence.OneToMany;
 public class Membership {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long membershipid;
+	private int membershipid;
+
 	private String name;
 	
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "membership")
@@ -28,10 +30,10 @@ public class Membership {
 		this.name = name;
 	}
 	
-	public long getMembershipid() {
+	public int getMembershipid() {
 		return membershipid;
 	}
-	public void setMembershipid(long membershipid) {
+	public void setMembershipid(int membershipid) {
 		this.membershipid = membershipid;
 	}
 	public String getName() {

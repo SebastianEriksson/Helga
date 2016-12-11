@@ -17,12 +17,19 @@ import fi.haagahelia.course.domain.User;
 import fi.haagahelia.course.domain.UserRepository;
 import fi.haagahelia.course.domain.MemberRepository;
 import fi.haagahelia.course.domain.Membership;
+import fi.haagahelia.course.domain.MembershipRepository;
 import fi.haagahelia.course.domain.Role;
+import fi.haagahelia.course.domain.RoleRepository;
 
 @Controller
 public class UserController {
 	@Autowired
 	private MemberRepository repository;
+	@Autowired
+	private MembershipRepository mrepository;
+	@Autowired
+	private RoleRepository rrepository;
+	@Autowired
 	private UserRepository urepository;
 	
 	@RequestMapping(value = "signup")
@@ -71,6 +78,8 @@ public class UserController {
 		    	
 		    	if (urepository.findByUsername(signupForm.getUsername()) == null && repository.findByEmail(signupForm.getEmail()) == null) { // Check if user or email exists
 		    		repository.save(newMember); // save member data
+		    		mrepository.save(newMembership); // save membership data
+		    		rrepository.save(newRole); // save role data
 		    		urepository.save(newUser); // save user data
 		    	}
 		    	else {

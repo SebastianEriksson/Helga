@@ -13,8 +13,6 @@ import fi.haagahelia.course.domain.Member;
 import fi.haagahelia.course.domain.MemberRepository;
 import fi.haagahelia.course.domain.Membership;
 import fi.haagahelia.course.domain.MembershipRepository;
-//import fi.haagahelia.course.domain.Role;
-//import fi.haagahelia.course.domain.RoleRepository;
 import fi.haagahelia.course.domain.User;
 import fi.haagahelia.course.domain.UserRepository;
 
@@ -40,10 +38,6 @@ public class HelgaApplication extends SpringBootServletInitializer {
 	public CommandLineRunner bookDemo(MemberRepository repository, MembershipRepository mrepository, UserRepository urepository) {
 		return (args) -> {
 			log.info("Add a couple of test users to the database");
-			
-			// Create pre-made role statuses
-//			rrepository.save(new User("USER"));
-//			rrepository.save(new Role("ADMIN"));
 			
 			// Create pre-made positions
 			mrepository.save(new Membership("member"));

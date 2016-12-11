@@ -24,11 +24,11 @@
 					<p th:if="${#fields.hasErrors('passwordCheck')}" th:errors="*{passwordCheck}">Password Match Error</p>	
 				</div>
 				<div>
-					<label>First name :<input type="firstName" th:field="*{firstName}" class="form-control"/></label>
+					<label>First name :<input type="text" th:field="*{firstName}" class="form-control"/></label>
 					<p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First name Error</p>	
 				</div>
 				<div>
-					<label> Surname :<input type="surname" th:field="*{surname}" class="form-control"/></label>
+					<label> Surname :<input type="text" th:field="*{surname}" class="form-control"/></label>
 					<p th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Surname Error</p>	
 				</div>
 				<div>

@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import fi.haagahelia.course.domain.Member;
 import fi.haagahelia.course.domain.MemberRepository;
+import fi.haagahelia.course.domain.MembershipRepository;
 import fi.haagahelia.course.domain.RoleRepository;
+import fi.haagahelia.course.domain.User;
+import fi.haagahelia.course.domain.UserRepository;
 
 @Controller
 public class MemberController {
@@ -22,7 +25,14 @@ public class MemberController {
 	
 	// Get the position list
 	@Autowired
-	private RoleRepository prepository;
+	private MembershipRepository mrepository;
+	
+	// Get the role list
+	private RoleRepository rrepository;
+	
+	// Get the user list
+	@Autowired
+	private UserRepository urepository;
 	
 	// Takes user to login page when connecting
 	@RequestMapping(value ="/")
@@ -39,6 +49,7 @@ public class MemberController {
 	@RequestMapping(value = "/memberlist")
 	public String memberList(Model model) {
 		model.addAttribute("members", repository.findAll());
+		model.addAttribute("users", urepository.findAll());
 		return "memberlist";
 	}
 	
@@ -58,14 +69,17 @@ public class MemberController {
 	@RequestMapping(value = "/add")
 	public String addMember(Model model) {
 		model.addAttribute("member", new Member());
-		model.addAttribute("positions", prepository.findAll());
+		model.addAttribute("memberships", mrepository.findAll());
+		model.addAttribute("roles", rrepository.findAll());
+		model.addAttribute("user", new User());
 		return "addmember";
 	}
 	
 	// Save the member added
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String save(Member member) {
+	public String save(Member member, User user) {
 		repository.save(member);
+		urepository.save(user);
 		return "redirect:memberlist";
 	}
 	

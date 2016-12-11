@@ -18,8 +18,6 @@ import fi.haagahelia.course.domain.UserRepository;
 import fi.haagahelia.course.domain.MemberRepository;
 import fi.haagahelia.course.domain.Membership;
 import fi.haagahelia.course.domain.MembershipRepository;
-//import fi.haagahelia.course.domain.Role;
-//import fi.haagahelia.course.domain.RoleRepository;
 
 @Controller
 public class UserController {
@@ -27,8 +25,6 @@ public class UserController {
 	private MemberRepository repository;
 	@Autowired
 	private MembershipRepository mrepository;
-//	@Autowired
-//	private RoleRepository rrepository;
 	@Autowired
 	private UserRepository urepository;
 	
@@ -64,7 +60,7 @@ public class UserController {
 		    	
 		    	// Enter Membership details
 		    	Membership newMembership = new Membership();
-		    	newMembership.setName("member");
+		    	newMembership.setMembershipid(0);
 		    	
 		    	// Enter user details
 		    	User newUser = new User();
@@ -72,20 +68,13 @@ public class UserController {
 		    	newUser.setUsername(signupForm.getUsername());
 		    	newUser.setRole("USER");
 		    	
-		    	// Enter role details
-//		    	Role newRole = new Role();
-//		    	newRole.setName("USER");
-		    	
-		    	
 		    	if (urepository.findByUsername(signupForm.getUsername()) == null) { // Check if user or email exists
 		    		repository.save(newMember); // save member data
 		    		mrepository.save(newMembership); // save membership data
-//		    		rrepository.save(newRole); // save role data
 		    		urepository.save(newUser); // save user data
 		    	}
 		    	else {
 	    			bindingResult.rejectValue("username", "err.username", "Username already exists"); // give error if one exsists already
-//	    			bindingResult.rejectValue("email", "err.email", "Email already exsists"); // give error if one exsists already
 	    			return "signup";
 		    	}
 			}

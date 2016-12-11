@@ -14,7 +14,7 @@ import javax.persistence.OneToMany;
 public class Membership {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long membershipid;
+	private long membershipid;
 	private String name;
 	
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "membership")
@@ -28,10 +28,10 @@ public class Membership {
 		this.name = name;
 	}
 	
-	public Long getMembershipid() {
+	public long getMembershipid() {
 		return membershipid;
 	}
-	public void setMembershipid(Long membershipid) {
+	public void setMembershipid(long membershipid) {
 		this.membershipid = membershipid;
 	}
 	public String getName() {

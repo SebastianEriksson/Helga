@@ -21,10 +21,12 @@
 			<form th:action="@{/login}" method="post"> <!-- The login form itself -->
 				<div><label> User Name : <input type="text" name="username" class="form-control"/> </label></div>
 				<div><label> Password: <input type="password" name="password" class="form-control"/> </label></div>
-				<div><input type="submit" value="Sign In" class="btn btn-success"/></div>
-				<div style="clear: both; display: block; height: 10px;"></div>
+				<div style="clear: both; display: block; height: 20px;"></div>
+				<div>
+					<input type="submit" value="Sign In" class="btn btn-success"/>
+					<a href="/signup" class="btn btn-success">Sign Up</a> <!-- Add a new member -->
+				</div>
 			</form>
 		</div>
-		<a href="/signup" class="btn btn-success">Sign Up</a> <!-- Add a new member -->
 	</body>
 </html>

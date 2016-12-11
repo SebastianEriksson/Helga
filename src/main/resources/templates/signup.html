@@ -36,7 +36,12 @@
 					<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</p>	
 				</div>
 				
-				<input type="submit" class="btn btn-success" value="Signup"></input>		
+				<div style="clear: both; display: block; height: 20px;"></div>
+				
+				<div>
+					<input type="submit" class="btn btn-success" value="Signup"></input>	
+					<a href="/login" class="btn btn-danger">Cancel</a> <!-- Add a new member -->
+				</div>	
 			</form>
 	</div>
 	</body>

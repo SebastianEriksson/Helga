@@ -23,17 +23,24 @@ public class Member {
 	@JoinColumn(name = "membershipid")
 	private Membership membership;
 	
+	// Insert users
+	@ManyToOne
+	@JsonIgnore
+	@JoinColumn(name = "userid")
+	private User user;
+	
 	// Getters and setters
 	public Member() {}
 	
 	public Member(String firstName, String surname, String email, String valid, 
-			Membership membership) {
+			Membership membership, User user) {
 		super();
 		this.firstName = firstName;
 		this.surname = surname;
 		this.email = email;
 		this.valid = valid;
 		this.membership = membership;
+		this.user = user;
 	}
 	
 	public Long getId() {
@@ -72,13 +79,19 @@ public class Member {
 	public void setMembership(Membership membership) {
 		this.membership = membership;
 	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
 	
 	@Override
 	public String toString() {
 		if (this.membership != null)
 			return "Member [id=" + id + ", first name=" + firstName + ", surname=" + 
 					surname + ", email=" + email + ", valid to=" + valid +
-					", membership=" + this.getMembership() + "]";
+					", membership=" + this.getMembership() + ", user=" + this.getUser() + "]";
 		else
 			return "Member [id=" + id + ", first name=" + firstName + ", surname="+
 					surname + ", email=" + email + ", valid to=" + valid + "]";

@@ -52,16 +52,23 @@ public class HelgaApplication extends SpringBootServletInitializer {
 			mrepository.save(new Membership("helga"));
 			mrepository.save(new Membership("admin"));
 			
-			// Create pre-made members
-			repository.save(new Member("John", "Snow", "JohnSnow@GOT.hbo", "2017-12-12", mrepository.findByName("tutor").get(0)));
-			
 			// Create pre-made users for members
-			User user1 = new User("user", 
-					"$2a$10$pw6Z8aFUI6T94OauF08U7ubXlKK9yFubDj1jubtn4QuH3z1Epf8Hu", rrepository.findByName("USER").get(0));
+			User user1 = new User("kai", 
+					"$2a$10$pw6Z8aFUI6T94OauF08U7ubXlKK9yFubDj1jubtn4QuH3z1Epf8Hu", 
+					rrepository.findByName("USER").get(0));
 			User user2 = new User("john", 
-					"$2a$10$HaTVlLziVQhbIh/ZKVrg1.LOZ7js07DGMhcjf1DHqCJN/Bo.03tZe", rrepository.findByName("USER").get(0));
+					"$2a$10$HaTVlLziVQhbIh/ZKVrg1.LOZ7js07DGMhcjf1DHqCJN/Bo.03tZe", 
+					rrepository.findByName("USER").get(0));
 			urepository.save(user1);
 			urepository.save(user2);
+			
+			// Create pre-made members
+			repository.save(new Member("John", "Snow", "JohnSnow@GOT.hbo", "2017-12-12", 
+					mrepository.findByName("tutor").get(0), 
+					urepository.findByUsername("john")));
+			repository.save(new Member("Kai", "Mountain", "Kai@hotmail.com", "2017-12-12", 
+					mrepository.findByName("member").get(0), 
+					urepository.findByUsername("kai")));
 			
 			// Show all the members in the log at startup
 			log.info("show all the members in the database");

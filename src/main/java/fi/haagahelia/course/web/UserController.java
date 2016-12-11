@@ -76,7 +76,7 @@ public class UserController {
 		    	newRole.setName("USER");
 		    	
 		    	
-		    	if (urepository.findByUsername(signupForm.getUsername()) == null && repository.findByEmail(signupForm.getEmail()) == null) { // Check if user or email exists
+		    	if (urepository.findByUsername(signupForm.getUsername()) == null) { // Check if user or email exists
 		    		repository.save(newMember); // save member data
 		    		mrepository.save(newMembership); // save membership data
 		    		rrepository.save(newRole); // save role data
@@ -84,7 +84,7 @@ public class UserController {
 		    	}
 		    	else {
 	    			bindingResult.rejectValue("username", "err.username", "Username already exists"); // give error if one exsists already
-	    			bindingResult.rejectValue("email", "err.email", "Email already exsists"); // give error if one exsists already
+//	    			bindingResult.rejectValue("email", "err.email", "Email already exsists"); // give error if one exsists already
 	    			return "signup";
 		    	}
 			}

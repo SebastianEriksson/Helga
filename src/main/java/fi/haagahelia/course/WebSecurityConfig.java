@@ -35,6 +35,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.and()
 		.logout()
 			.permitAll(); // Give everyone permission to logout
+//			.and()
+//		.exceptionHandling()
+//			.accessDeniedPage("/403")
+//			.accessDeniedPage("/404");
 	}
 	
 	// Encode the password

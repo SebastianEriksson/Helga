@@ -44,6 +44,6 @@
 						th:href="@{/delete/{id}(id=${member.id})}">Delete</a></td> <!-- Allow only admins to delete users -->
 			</tr>
 	     </table>
-		 <a sec:authorize="hasAuthority('ADMIN')" href="/add" class="btn btn-success">Add Member</a> <!-- Add a new member -->
+		 <a sec:authorize="hasAuthority('ADMIN')" href="/addaccount" class="btn btn-success">Add Member</a> <!-- Add a new member -->
 	</body>
 </html>

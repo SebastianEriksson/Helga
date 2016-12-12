@@ -3,6 +3,7 @@ package fi.haagahelia.course.web;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,8 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import fi.haagahelia.course.domain.Member;
 import fi.haagahelia.course.domain.MemberRepository;
-import fi.haagahelia.course.domain.MembershipRepository;
-import fi.haagahelia.course.domain.User;
 import fi.haagahelia.course.domain.UserRepository;
 
 @Controller
@@ -22,27 +21,29 @@ public class MemberController {
 	@Autowired
 	private MemberRepository repository;
 	
-	// Get the position list
-	@Autowired
-	private MembershipRepository mrepository;
-	
 	// Get the user list
 	@Autowired
 	private UserRepository urepository;
 	
 	// Takes user to login page when connecting
-	@RequestMapping(value ="/")
+	@RequestMapping(value="/")
 	public String index() {
 		return "login";
 	}
 	
 	// Login page for users and admins
-	@RequestMapping(value ="/login")
+	@RequestMapping(value="/login")
 	public String login() {
 		return "login";
 	}
 	
-	@RequestMapping(value = "/memberlist")
+//	// Error page for denied users
+//	@RequestMapping(value="/403")
+//	public String denied() {
+//		return "403";
+//	}
+	
+	@RequestMapping(value="/memberlist")
 	public String memberList(Model model) {
 		model.addAttribute("members", repository.findAll());
 		model.addAttribute("users", urepository.findAll());
@@ -61,25 +62,9 @@ public class MemberController {
 		return repository.findOne(memberId);
 	}
 	
-	// Add new member to the db
-	@RequestMapping(value = "/add")
-	public String addMember(Model model) {
-		model.addAttribute("member", new Member());
-		model.addAttribute("memberships", mrepository.findAll());
-		model.addAttribute("user", new User());
-		return "addmember";
-	}
-	
-	// Save the member added
-	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String save(Member member, User user) {
-		repository.save(member);
-		urepository.save(user);
-		return "redirect:memberlist";
-	}
-	
 	// Remove a member from the db
-	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+	@PreAuthorize("hasAuthority('ADMIN')")
+	@RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
 	public String deleteMember(@PathVariable("id") Long memberId, Model model) {
 		repository.delete(memberId);
 		return "redirect:../memberlist";

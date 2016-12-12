@@ -6,21 +6,19 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-public class SignupForm {
+public class AddAccount {
     @NotEmpty
     @Size(min=5, max=30)
     private String username = "";
 
     @NotEmpty
-    @Size(min=7, max=30)
     private String password = "";
 
     @NotEmpty
-    @Size(min=7, max=30)
     private String passwordCheck = "";
 
     @NotEmpty
-    private String role = "USER";
+    private String role = "";
     
     @NotEmpty
     @Size(min=2, max=30)
@@ -38,7 +36,7 @@ public class SignupForm {
     private String valid = LocalDate.now().plusMonths(12).toString();
     
     @NotEmpty
-    private String name = "member";
+    private String name = "";
 
 	public String getUsername() {
 		return username;
@@ -88,10 +86,10 @@ public class SignupForm {
 	public void setValid(String valid) {
 		this.valid = valid;
 	}
-	public String getMembershipName() {
+	public String getName() {
 		return name;
 	}
-	public void setMembershipName(String name) {
+	public void setName(String name) {
 		this.name = name;
 	}
     

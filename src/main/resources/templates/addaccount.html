@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
-		<title>Sign Up</title>
+		<title>Add Account</title>
 		<meta http-equiv="Content-Type" content="text/html"/>
 		<meta charset="UTF-8"/>
 		<link type="text/css" rel="stylesheet" th:href="@{css/bootstrap.min.css}"/>
@@ -9,8 +9,8 @@
 	<body>
 		<h1>Sign-up</h1>
 		
-		<div class="col-md-4"> <!-- This form allows people to signup for membership -->
-			<form th:object="${signupform}" th:action="@{/saveuser}" action="#" method="post">
+		<div class="col-md-4"> <!-- This form allows admins to signup members -->
+			<form th:object="${addaccount}" th:action="@{/addaccount}" action="#" method="post">
 				<div>
 					<label> Username :<input type="text" th:field="*{username}" class="form-control"/></label>
 					<p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</p>	
@@ -20,8 +20,12 @@
 					<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</p>	
 				</div>
 				<div>
-					<label> Re-type Password: <input type="password" th:field="*{passwordCheck}" class="form-control"/></label>
+					<label> Re-type Password :<input type="password" th:field="*{passwordCheck}" class="form-control"/></label>
 					<p th:if="${#fields.hasErrors('passwordCheck')}" th:errors="*{passwordCheck}">Password Match Error</p>	
+				</div>
+				<div>
+					<label> Role : (USER = default access, ADMIN = admin)<input type="text" th:field="*{role}" class="form-control"/></label>
+					<p th:if="${#fields.hasErrors('role')}" th:errors="*{role}">Role Error</p>	
 				</div>
 				<div>
 					<label>First name :<input type="text" th:field="*{firstName}" class="form-control"/></label>
@@ -34,10 +38,15 @@
 				<div>
 					<label> Email :<input type="email" th:field="*{email}" class="form-control"/></label>
 					<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</p>	
-				</div>				
+				</div>
 				<div>
-					<input type="submit" class="btn btn-success" value="Signup"></input>	
-					<a href="/login" class="btn btn-danger">Cancel</a> <!-- Add a new member -->
+					<label> Membership : (member, tutor, headtutor, helga, admin)<input type="text" th:field="*{name}" class="form-control"/></label>
+					<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Membership Error</p>	
+				</div>
+				
+				<div>
+					<input type="submit" class="btn btn-success" value="Add"></input>	
+					<a href="/memberlist" class="btn btn-danger">Cancel</a> <!-- Add a new member -->
 				</div>	
 			</form>
 		</div>

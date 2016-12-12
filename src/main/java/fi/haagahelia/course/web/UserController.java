@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import fi.haagahelia.course.domain.AddAccount;
 import fi.haagahelia.course.domain.Member;
 import fi.haagahelia.course.domain.SignupForm;
 import fi.haagahelia.course.domain.User;
@@ -29,7 +30,7 @@ public class UserController {
 	private UserRepository urepository;
 	
 	@RequestMapping(value = "signup")
-	public String addBook(Model model) {
+	public String signUp(Model model) {
 		model.addAttribute("signupform", new SignupForm());
 		return "signup";
 	}
@@ -51,27 +52,28 @@ public class UserController {
 		    	BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
 		    	String hashPwd = bc.encode(pwd);
 		    	
-		    	// Enter Member details
-		    	Member newMember = new Member();
-		    	newMember.setFirstName(signupForm.getFirstName());
-		    	newMember.setSurname(signupForm.getSurname());
-		    	newMember.setEmail(signupForm.getEmail());
-		    	newMember.setValid(signupForm.getValid());
-		    	
 		    	// Enter Membership details
-		    	Membership newMembership = new Membership();
-		    	newMembership.setMembershipid(0);
+		    	Membership newMembership = new Membership(signupForm.getMembershipName());
 		    	
 		    	// Enter user details
-		    	User newUser = new User();
-		    	newUser.setPasswordHash(hashPwd);
-		    	newUser.setUsername(signupForm.getUsername());
-		    	newUser.setRole("USER");
+		    	User newUser = new User(
+		    			signupForm.getUsername(), 
+		    			hashPwd, 
+		    			"USER");
 		    	
-		    	if (urepository.findByUsername(signupForm.getUsername()) == null) { // Check if user or email exists
-		    		repository.save(newMember); // save member data
+		    	// Enter Member details
+		    	Member newMember = new Member(
+		    			signupForm.getFirstName(), 
+		    			signupForm.getSurname(),
+		    			signupForm.getEmail(), 
+		    			signupForm.getValid(), 
+		    			newMembership, 
+		    			newUser);
+		    	
+		    	if (urepository.findByUsername(signupForm.getUsername()) == null) { // Check if user exists
 		    		mrepository.save(newMembership); // save membership data
 		    		urepository.save(newUser); // save user data
+		    		repository.save(newMember); // save member data
 		    	}
 		    	else {
 	    			bindingResult.rejectValue("username", "err.username", "Username already exists"); // give error if one exsists already
@@ -87,5 +89,68 @@ public class UserController {
 			return "signup";
 		}
 		return "redirect:/login";
+	}
+	
+	@RequestMapping(value = "addaccount")
+	public String addAccount(Model model) {
+		model.addAttribute("addaccount", new AddAccount());
+		return "addaccount";
+	}
+
+/**
+ * Create new user
+ * Check if user already exists & form validation
+ * 
+ * @param signupForm
+ * @param bindingResult
+ * @return
+ */
+
+	@RequestMapping(value = "addaccount", method = RequestMethod.POST)
+	public String save(@Valid @ModelAttribute("addaccount") AddAccount addAccount, BindingResult bindingResult) {
+		if (!bindingResult.hasErrors()) { // validation errors
+			if (addAccount.getPassword().equals(addAccount.getPasswordCheck())) { // check password match		
+	    		String pwd = addAccount.getPassword();
+		    	BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
+		    	String hashPwd = bc.encode(pwd);
+		    	
+		    	// Enter Membership details
+		    	Membership newMembership = new Membership(
+		    			addAccount.getName());
+		    	
+		    	// Enter user details
+		    	User newUser = new User(
+		    			addAccount.getUsername(), 
+		    			hashPwd, 
+		    			addAccount.getRole());
+		    	
+		    	// Enter Member details
+		    	Member newMember = new Member(
+		    			addAccount.getFirstName(), 
+		    			addAccount.getSurname(),
+		    			addAccount.getEmail(), 
+		    			addAccount.getValid(), 
+		    			newMembership, 
+		    			newUser);
+		    	
+		    	if (urepository.findByUsername(addAccount.getUsername()) == null) { // Check if user exists
+		    		mrepository.save(newMembership); // save membership data
+		    		urepository.save(newUser); // save user data
+		    		repository.save(newMember); // save member data
+		    	}
+		    	else {
+	    			bindingResult.rejectValue("username", "err.username", "Username already exists"); // give error if one exsists already
+	    			return "addaccount";
+		    	}
+			}
+			else {
+				bindingResult.rejectValue("passwordCheck", "err.passCheck", "Passwords does not match"); // give error if the passwords don't match	
+				return "addaccount";
+			}
+		}
+		else {
+			return "addaccount";
+		}
+		return "redirect:/memberlist";
 	}
 }

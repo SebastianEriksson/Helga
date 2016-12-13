@@ -5,7 +5,7 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
 
 //This class is used when a admin edits a account
-//In this class everything except date is customizable in the addaccount.html
+//In this class everything except date is customizable in the editaccount.html
 //None of the values can be empty
 public class EditAccount {
 	

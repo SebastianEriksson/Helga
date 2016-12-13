@@ -18,6 +18,7 @@ public class Membership {
 
 	private String name;
 	
+	// Link to member class
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "membership")
 	private List<Member> members;
 	
@@ -49,7 +50,7 @@ public class Membership {
 		this.members = members;
 	}
 	
-	@Override
+	@Override // toString
 	public String toString() {
 		return "Membership [membershipid=" + membershipid + ", name=" + name + "]";
 	}

@@ -1,14 +1,18 @@
 package fi.haagahelia.course.domain;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
+// Define user entity
 @Entity
 public class User {
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", nullable = false, updatable = false)
@@ -25,6 +29,10 @@ public class User {
 	// Role can't be null
 	@Column(name = "role", nullable = false)
 	private String role;
+	
+	// Link to member class
+	@OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
+	private List<Member> members;
 	
 	// Getters and setters
 	public User() {
@@ -65,6 +73,7 @@ public class User {
 		this.role = role;
 	}
 	
+	@Override // toString
 	public String toString() {
 		return "User [userid=" + userid + ", username=" + username + 
 				", passwordHash=" + passwordHash + 

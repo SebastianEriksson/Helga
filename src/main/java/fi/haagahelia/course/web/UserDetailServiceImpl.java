@@ -10,10 +10,8 @@ import org.springframework.stereotype.Service;
 import fi.haagahelia.course.domain.User;
 import fi.haagahelia.course.domain.UserRepository;
 
-/**
- * This class is used by spring security to authenticate and authorize user
- **/
 
+// Authenticate and authorize user
 @Service
 public class UserDetailServiceImpl implements UserDetailsService {
 	private final UserRepository repository;
@@ -30,6 +28,6 @@ public class UserDetailServiceImpl implements UserDetailsService {
 		User curruser = repository.findByUsername(username);
 		UserDetails user = new org.springframework.security.core.userdetails.User(username, curruser.getPasswordHash(), 
 				AuthorityUtils.createAuthorityList(curruser.getRole()));
-		return user;
+		return user; // return the user login request as positive
 	}
 }

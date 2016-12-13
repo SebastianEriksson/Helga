@@ -33,13 +33,13 @@ public class HelgaApplication extends SpringBootServletInitializer {
 		SpringApplication.run(HelgaApplication.class, args);
 	}
 	
-	// Add pre-made positions, test users with login access
+	// Add pre-made memberships, test users with login access
 	@Bean
 	public CommandLineRunner bookDemo(MemberRepository repository, MembershipRepository mrepository, UserRepository urepository) {
 		return (args) -> {
-			log.info("Add a couple of test users to the database");
+			log.info("Add a couple of test memberships, users and mebers to the database");
 			
-			// Create pre-made positions
+			// Create pre-made memberships
 			mrepository.save(new Membership("member"));
 			mrepository.save(new Membership("tutor"));
 			mrepository.save(new Membership("headtutor"));

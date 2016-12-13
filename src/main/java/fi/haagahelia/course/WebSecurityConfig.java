@@ -22,7 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
-			.authorizeRequests().antMatchers("/css/**").permitAll() // Enable css when logged out
+			.authorizeRequests().antMatchers("/css/**").permitAll() // Enable css when not logged in
 			.and()
 			.authorizeRequests().antMatchers("/signup", "/saveuser").permitAll() // Allow members to signup
 	        .and()
@@ -37,8 +37,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.permitAll(); // Give everyone permission to logout
 //			.and()
 //		.exceptionHandling()
-//			.accessDeniedPage("/403")
-//			.accessDeniedPage("/404");
+//			.accessDeniedPage("/403") // Uncomment to enable custom 403 page
+//			.accessDeniedPage("/404"); // Uncomment to enable custom 404 page
 	}
 	
 	// Encode the password

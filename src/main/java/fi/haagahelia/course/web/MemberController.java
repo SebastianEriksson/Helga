@@ -15,6 +15,7 @@ import fi.haagahelia.course.domain.Member;
 import fi.haagahelia.course.domain.MemberRepository;
 import fi.haagahelia.course.domain.UserRepository;
 
+// Controller for accessing data
 @Controller
 public class MemberController {
 	// Get the member list
@@ -43,6 +44,7 @@ public class MemberController {
 //		return "403";
 //	}
 	
+	// Show list of all members
 	@RequestMapping(value="/memberlist")
 	public String memberList(Model model) {
 		model.addAttribute("members", repository.findAll());
@@ -65,9 +67,9 @@ public class MemberController {
 	// Remove a member from the db
 	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
-	public String deleteMember(@PathVariable("id") Long memberId, Model model) {
+	public String deleteMember(@PathVariable("id") Long memberId) {
 		repository.delete(memberId);
 		return "redirect:../memberlist";
-	}    
+	}
 
 }

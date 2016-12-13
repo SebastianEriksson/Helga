@@ -6,11 +6,15 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+//This class is used when a new member/user signs up
+//In this class everything except date, role and membership are customizable in the signup.html
+//None of the values can be empty
 public class SignupForm {
     @NotEmpty
     @Size(min=5, max=30)
     private String username = "";
-
+    
+    // Passwords are entered here in plain (non-hashed)
     @NotEmpty
     @Size(min=7, max=30)
     private String password = "";
@@ -33,13 +37,16 @@ public class SignupForm {
     @NotEmpty
     @Size(min=6, max=60)
     private String email = "";
-
+    
+    // Defines how long a membership is valid, default is current date + 12 months
     @NotEmpty
     private String valid = LocalDate.now().plusMonths(12).toString();
     
+    // Membership name
     @NotEmpty
     private String name = "member";
-
+    
+    // Getters and setters
 	public String getUsername() {
 		return username;
 	}

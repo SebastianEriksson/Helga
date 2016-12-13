@@ -5,17 +5,19 @@
 	    <title>Login</title>
 	    <meta http-equiv="Content-Type" content="text/html"/>
 		<meta charset="UTF-8"/>
-		<link type="text/css" rel="stylesheet" 
-			href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}"/>
+		<link type="text/css" rel="stylesheet" th:href="@{css/bootstrap.css}"/>
 	</head>
 	<body>
+		<div class="col-md-4 col-md-offset-4">
+			<h1>Log in</h1>
+		</div>
 		<div class="col-md-4 col-md-offset-4">
 			<div class="alert alert-danger" th:if="${param.error}">
 				Invalid username and password. <!-- Display this error if username/password is wrong -->
 			</div>
 			
         	<div class="alert alert-warning" th:if="${param.logout}">
-        		You have been logged out. <!-- Display messafge when user logs out -->
+        		You have been logged out. <!-- Display message when user logs out -->
        		</div>
        		
 			<form th:action="@{/login}" method="post"> <!-- The login form itself -->
@@ -23,8 +25,8 @@
 				<div><label> Password: <input type="password" name="password" class="form-control"/> </label></div>
 				<div style="clear: both; display: block; height: 20px;"></div>
 				<div>
-					<input type="submit" value="Sign In" class="btn btn-success"/>
-					<a href="/signup" class="btn btn-success">Sign Up</a> <!-- Add a new member -->
+					<input type="submit" value="Sign In" class="btn btn-success"/> <!-- Try to login with the credentials provided -->
+					<a href="/signup" class="btn btn-success">Sign Up</a> <!-- Go to signup page -->
 				</div>
 			</form>
 		</div>

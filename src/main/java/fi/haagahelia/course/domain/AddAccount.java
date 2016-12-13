@@ -6,15 +6,21 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+// This class is used when a admin creates a new user
+// In this class everything except date is customizable in the addaccount.html
+// None of the values can be empty
 public class AddAccount {
     @NotEmpty
     @Size(min=5, max=30)
     private String username = "";
-
+    
+    // Passwords are entered here in plain (non-hashed)
     @NotEmpty
+    @Size(min=7, max=30)
     private String password = "";
-
+    
     @NotEmpty
+    @Size(min=7, max=30)
     private String passwordCheck = "";
 
     @NotEmpty
@@ -31,13 +37,16 @@ public class AddAccount {
     @NotEmpty
     @Size(min=6, max=60)
     private String email = "";
-
+    
+    // Defines how long a membership is valid, default is current date + 12 months
     @NotEmpty
     private String valid = LocalDate.now().plusMonths(12).toString();
     
+    // Membership name
     @NotEmpty
     private String name = "";
-
+    
+    // Getters and setters
 	public String getUsername() {
 		return username;
 	}

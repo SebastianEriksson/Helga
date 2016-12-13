@@ -88,9 +88,9 @@ public class Member {
 		this.user = user;
 	}
 	
-	@Override
+	@Override // toString for Member
 	public String toString() {
-		if (this.membership != null)
+		if (this.membership != null && this.user != null)
 			return "Member [id=" + id + ", first name=" + firstName + ", surname=" + 
 					surname + ", email=" + email + ", valid to=" + valid +
 					", membership=" + this.getMembership() + ", user=" + this.getUser() + "]";

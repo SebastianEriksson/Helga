@@ -4,11 +4,12 @@
 		<title>Sign Up</title>
 		<meta http-equiv="Content-Type" content="text/html"/>
 		<meta charset="UTF-8"/>
-		<link type="text/css" rel="stylesheet" th:href="@{css/bootstrap.min.css}"/>
+		<link type="text/css" rel="stylesheet" th:href="@{css/bootstrap.css}"/>
 	</head>
 	<body>
-		<h1>Sign-up</h1>
-		
+		<div class="col-md-4">
+			<h1>Sign-up</h1>
+		</div>
 		<div class="col-md-4"> <!-- This form allows people to signup for membership -->
 			<form th:object="${signupform}" th:action="@{/saveuser}" action="#" method="post">
 				<div>
@@ -36,8 +37,8 @@
 					<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</p>	
 				</div>				
 				<div>
-					<input type="submit" class="btn btn-success" value="Signup"></input>	
-					<a href="/login" class="btn btn-danger">Cancel</a> <!-- Add a new member -->
+					<input type="submit" class="btn btn-success" value="Signup"></input> <!-- Submit new signup to db -->
+					<a href="/login" class="btn btn-danger">Cancel</a>  <!-- Cancel signup of new account and return to login -->
 				</div>	
 			</form>
 		</div>

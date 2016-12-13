@@ -29,21 +29,15 @@ public class UserController {
 	@Autowired
 	private UserRepository urepository;
 	
+	// This is the controller for new users to sign up through signup.html
 	@RequestMapping(value = "signup")
 	public String signUp(Model model) {
 		model.addAttribute("signupform", new SignupForm());
 		return "signup";
 	}
-
-/**
- * Create new user
- * Check if user already exists & form validation
- * 
- * @param signupForm
- * @param bindingResult
- * @return
- */
-
+	
+	// Validation and check no one else is using the same user
+	// If no errors occur save user
 	@RequestMapping(value = "saveuser", method = RequestMethod.POST)
 	public String save(@Valid @ModelAttribute("signupform") SignupForm signupForm, BindingResult bindingResult) {
 		if (!bindingResult.hasErrors()) { // validation errors
@@ -88,24 +82,19 @@ public class UserController {
 		else {
 			return "signup";
 		}
-		return "redirect:/login";
+		return "redirect:/login"; // After successful signup, redirect to login
 	}
 	
+	// This is the controller for admins to add new users in addaccount.html
 	@RequestMapping(value = "addaccount")
 	public String addAccount(Model model) {
 		model.addAttribute("addaccount", new AddAccount());
+		model.addAttribute("memberships", mrepository.findAll());
 		return "addaccount";
 	}
-
-/**
- * Create new user
- * Check if user already exists & form validation
- * 
- * @param signupForm
- * @param bindingResult
- * @return
- */
-
+	
+	// Validation and check no one else is using the same user
+	// If no errors occur save user
 	@RequestMapping(value = "addaccount", method = RequestMethod.POST)
 	public String save(@Valid @ModelAttribute("addaccount") AddAccount addAccount, BindingResult bindingResult) {
 		if (!bindingResult.hasErrors()) { // validation errors
@@ -133,7 +122,7 @@ public class UserController {
 		    			newMembership, 
 		    			newUser);
 		    	
-		    	if (urepository.findByUsername(addAccount.getUsername()) == null) { // Check if user exists
+		    	if (urepository.findByUsername(addAccount.getUsername()) == null) { // Check if username exists
 		    		mrepository.save(newMembership); // save membership data
 		    		urepository.save(newUser); // save user data
 		    		repository.save(newMember); // save member data
@@ -151,6 +140,6 @@ public class UserController {
 		else {
 			return "addaccount";
 		}
-		return "redirect:/memberlist";
+		return "redirect:/memberlist"; // After successful account addition, redirect to list
 	}
 }

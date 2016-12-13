@@ -1,52 +1,51 @@
 package fi.haagahelia.course.domain;
 
-import java.time.LocalDate;
-
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-// This class is used when a admin creates a new account
-// In this class everything except date is customizable in the addaccount.html
-// None of the values can be empty
-public class AddAccount {
-    @NotEmpty
-    @Size(min=5, max=30)
-    private String username = "";
-    
-    // Passwords are entered here in plain (non-hashed)
-    @NotEmpty
-    @Size(min=7, max=30)
-    private String password = "";
-    
-    @NotEmpty
-    @Size(min=7, max=30)
-    private String passwordCheck = "";
-
-    @NotEmpty
-    private String role = "";
-    
-    @NotEmpty
-    @Size(min=2, max=30)
-    private String firstName = "";
-    
-    @NotEmpty
-    @Size(min=2, max=30)
-    private String surname = "";
-    
-    @NotEmpty
-    @Size(min=6, max=60)
-    private String email = "";
-    
-    // Defines how long a membership is valid, default is current date + 12 months
-    @NotEmpty
-    private String valid = LocalDate.now().plusMonths(12).toString();
-    
-    // Membership name
-    @NotEmpty
-    private String name = "";
-    
-    // Getters and setters
+//This class is used when a admin edits a account
+//In this class everything except date is customizable in the addaccount.html
+//None of the values can be empty
+public class EditAccount {
+	
+	@NotEmpty
+	@Size(min=5, max=30)
+	private String username = "";
+ 
+	// Passwords are entered here in plain (non-hashed)
+	@NotEmpty
+	@Size(min=7, max=30)
+	private String password = "";
+	
+	@NotEmpty
+	@Size(min=7, max=30)
+	private String passwordCheck = "";
+	
+	@NotEmpty
+	private String role = "";
+	 
+	@NotEmpty
+	@Size(min=2, max=30)
+	private String firstName = "";
+	 
+	@NotEmpty
+	@Size(min=2, max=30)
+	private String surname = "";
+	 
+	@NotEmpty
+	@Size(min=6, max=60)
+	private String email = "";
+	 
+	// Defines how long a membership is valid, default is current date + 12 months
+	@NotEmpty
+	private String valid = "";
+	 
+	// Membership name
+	@NotEmpty
+	private String name = "";
+ 
+	// Getters and setters
 	public String getUsername() {
 		return username;
 	}
@@ -101,5 +100,5 @@ public class AddAccount {
 	public void setName(String name) {
 		this.name = name;
 	}
-    
+ 
 }

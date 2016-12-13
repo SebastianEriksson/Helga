@@ -8,10 +8,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import fi.haagahelia.course.domain.AddAccount;
+import fi.haagahelia.course.domain.EditAccount;
 import fi.haagahelia.course.domain.Member;
 import fi.haagahelia.course.domain.SignupForm;
 import fi.haagahelia.course.domain.User;
@@ -70,7 +72,7 @@ public class UserController {
 		    		repository.save(newMember); // save member data
 		    	}
 		    	else {
-	    			bindingResult.rejectValue("username", "err.username", "Username already exists"); // give error if one exsists already
+	    			bindingResult.rejectValue("username", "err.username", "Username already exists"); // give error if one exists already
 	    			return "signup";
 		    	}
 			}
@@ -128,7 +130,7 @@ public class UserController {
 		    		repository.save(newMember); // save member data
 		    	}
 		    	else {
-	    			bindingResult.rejectValue("username", "err.username", "Username already exists"); // give error if one exsists already
+	    			bindingResult.rejectValue("username", "err.username", "Username already exists"); // give error if one exists already
 	    			return "addaccount";
 		    	}
 			}
@@ -141,5 +143,64 @@ public class UserController {
 			return "addaccount";
 		}
 		return "redirect:/memberlist"; // After successful account addition, redirect to list
+	}
+	
+	// Edit a member
+	@RequestMapping(value="/editaccount/{id}", method = RequestMethod.GET)
+	public String editMember(@PathVariable("id") Long memberId, Model model) {
+		repository.findById(memberId);
+		model.addAttribute("editaccount", new EditAccount());
+		model.addAttribute("memberships", mrepository.findAll());
+		return "editaccount";
+	}
+	
+	// Validation and check no one else is using the same user
+	// If no errors occur save user
+	@RequestMapping(value = "editaccount", method = RequestMethod.POST)
+	public String save(@Valid @ModelAttribute("editaccount") EditAccount editAccount, BindingResult bindingResult) {
+		if (!bindingResult.hasErrors()) { // validation errors
+			if (editAccount.getPassword().equals(editAccount.getPasswordCheck())) { // check password match		
+	    		String pwd = editAccount.getPassword();
+		    	BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
+		    	String hashPwd = bc.encode(pwd);
+		    	
+		    	// Enter Membership details
+		    	Membership editMembership = new Membership(
+		    			editAccount.getName());
+		    	
+		    	// Enter user details
+		    	User editUser = new User(
+		    			editAccount.getUsername(), 
+		    			hashPwd, 
+		    			editAccount.getRole());
+		    	
+		    	// Enter Member details
+		    	Member editMember = new Member(
+		    			editAccount.getFirstName(), 
+		    			editAccount.getSurname(),
+		    			editAccount.getEmail(), 
+		    			editAccount.getValid(), 
+		    			editMembership, 
+		    			editUser);
+		    	
+		    	if (urepository.findByUsername(editAccount.getUsername()) == null) { // Check if username exists
+		    		mrepository.save(editMembership); // save membership data
+		    		urepository.save(editUser); // save user data
+		    		repository.save(editMember); // save member data
+		    	}
+		    	else {
+	    			bindingResult.rejectValue("username", "err.username", "Username already exists"); // give error if one exists already
+	    			return "editaccount";
+		    	}
+			}
+			else {
+				bindingResult.rejectValue("passwordCheck", "err.passCheck", "Passwords does not match"); // give error if the passwords don't match	
+				return "editaccount";
+			}
+		}
+		else {
+			return "editaccount";
+		}
+		return "redirect:/memberlist"; // After successful account edit, redirect to list
 	}
 }

@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Edit Account</title>
+		<meta http-equiv="Content-Type" content="text/html"/>
+		<meta charset="UTF-8"/>
+		<link type="text/css" rel="stylesheet" th:href="@{css/bootstrap.css}"/>
+	</head>
+	<body>
+		<div class="col-md-4 col-md-offset-4">
+			<h1>Edit Account</h1>
+		</div>
+		<div class="col-md-4 col-md-offset-4" style="padding:20px 0"> 
+			<form th:action="@{/logout}" method="post"> <!-- Allows users to log out -->
+				<input type="submit" value="Sign Out" class="btn btn-danger"/>
+			</form>
+		</div>
+		<div class="col-md-4 col-md-offset-4"> <!-- This form allows admins to edit members -->
+			<form th:object="${editaccount}" th:action="@{/editaccount}" action="#" method="post">
+				<div>
+					<label> Username :<input type="text" th:field="*{username}" class="form-control"/></label>
+					<p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</p>	
+				</div>
+				<div>
+					<label> Password :<input type="password" th:field="*{password}" class="form-control"/></label>
+					<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</p>	
+				</div>
+				<div>
+					<label> Re-type Password :<input type="password" th:field="*{passwordCheck}" class="form-control"/></label>
+					<p th:if="${#fields.hasErrors('passwordCheck')}" th:errors="*{passwordCheck}">Password Match Error</p>	
+				</div>
+				<h4>Role :</h4>
+				<div class="radio">
+					<label>
+						<input type="radio" th:field="*{role}" th:value="USER"/> User
+					</label>
+						<p th:if="${#fields.hasErrors('role')}" th:errors="*{role}">Role Error</p>	
+				</div>
+				<div class="radio">
+					<label>
+						<input type="radio" th:field="*{role}" th:value="ADMIN"/> Admin
+					</label>
+					<p th:if="${#fields.hasErrors('role')}" th:errors="*{role}">Role Error</p>	
+				</div>
+				<div>
+					<label>First name :<input type="text" th:field="*{firstName}" class="form-control"/></label>
+					<p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First name Error</p>	
+				</div>
+				<div>
+					<label> Surname :<input type="text" th:field="*{surname}" class="form-control"/></label>
+					<p th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Surname Error</p>	
+				</div>
+				<div>
+					<label> Email :<input type="email" th:field="*{email}" class="form-control"/></label>
+					<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</p>	
+				</div>
+				<div>
+					<label>Membership :<select th:field="*{name}" class="form-control">
+						<option th:each="membership: ${memberships}"
+							th:value="${membership.name}"
+							th:text="${membership.name}"></option>
+					</select></label>
+					<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Membership Error</p>
+				</div>
+				
+				<div>
+					<input type="submit" class="btn btn-success" value="Edit"></input> <!-- Edit member -->
+					<a href="/memberlist" class="btn btn-danger">Cancel</a>  <!-- Cancel editing a account and return to memberlist -->
+				</div>	
+			</form>
+		</div>
+	</body>
+</html>
